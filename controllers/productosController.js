@@ -18,7 +18,7 @@ router.post('/guardar', (req, res) => {
   let producto = req.body
   productos.save(producto)
   refreshProducts()
-  res.redirect('/')
+  res.redirect('/main')
 })
 
 router.put('/actualizar/:id', (req, res) => {

@@ -46,6 +46,7 @@ app.use((req, res, next) => {
   }
 })
 
+//acca
 const productos = require('./controllers/productosController.js')
 const testProductos = require('./controllers/testController.js')
 require('./controllers/chatController.js')
