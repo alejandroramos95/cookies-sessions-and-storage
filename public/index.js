@@ -61,7 +61,7 @@ function renderProds(data) {
 
 //
 
-function getSessionUserName() {
+/* function getSessionUserName() {
   const html = req.session.userName
   document.getElementById('getUserName').innerHTML = html
-}
+} */

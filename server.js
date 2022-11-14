@@ -29,23 +29,32 @@ app.use(
       collectionName: 'sessions',
     }),
     secret: 'sh21501295asdjk',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: { maxAge: 60000 },
   })
 )
 
 const sessions = require('./controllers/sessionController.js')
+app.use('/api/sessions', sessions)
+
+app.use((req, res, next) => {
+  if (req.session.userName) {
+    next()
+  } else {
+    res.sendFile(__dirname + `/public/login.html`)
+  }
+})
+
 const productos = require('./controllers/productosController.js')
 const testProductos = require('./controllers/testController.js')
 require('./controllers/chatController.js')
 
-app.use('/', sessions)
 app.use('/api/productos', productos)
 app.use('/api/productos-test', testProductos)
 
 app.get('/:file', (req, res) => {
-  res.sendFile(__dirname + `/public/${req.params.file}`)
+  res.sendFile(__dirname + `/public/${req.params.file}.html`)
 })
 
 // Server up
