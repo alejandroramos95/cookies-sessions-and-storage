@@ -1,8 +1,8 @@
 <html lang="es">
   <head>
     <div class="container mt-3">
-      <h1 class="alert alert-success" id="getUserName">
-          Bienvenido/a, 
+      <h1 class="alert alert-success">
+          Bienvenido/a, <span id="getUserName"></span>
               <button class="btn btn-warning float-right mt-2" onclick="location.href='/logout'">
                   Desloguear
               </button>
@@ -96,6 +96,6 @@
         </div>
       </div>
     </div>
-    <script src="index.js"></script>
+    <script src="index.js">getSessionUserName()</script>
   </body>
 </html>

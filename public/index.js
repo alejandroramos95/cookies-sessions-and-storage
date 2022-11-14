@@ -60,8 +60,14 @@ function renderProds(data) {
 }
 
 //
-
-/* function getSessionUserName() {
-  const html = req.session.userName
+(function getSessionUserName() {
+  console.log(document.cookie)
+  let obj = document.cookie.split('; ').reduce((prev, current) => {
+    const [name, ...value] = current.split('=')
+    prev[name] = value.join('=')
+    return prev
+  }, {})
+  console.log(obj)
+  let html = obj?.username
   document.getElementById('getUserName').innerHTML = html
-} */
+})()
