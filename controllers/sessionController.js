@@ -5,7 +5,6 @@ const router = express.Router()
 router.post('/login', (req, res) => {
   req.session.userName = req.body.nombreUsuario
   res.cookie('username', req.session.userName)
-  res.cookie('falopa', 'caca')
   res.redirect('/main')
 })
 
