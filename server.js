@@ -1,5 +1,6 @@
 const express = require('express')
 const session = require('express-session')
+const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo')
 
 const { Server: HttpServer } = require('http')
@@ -16,26 +17,32 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(session({
-  store: MongoStore.create({ mongoUrl: "mongodb+srv://coderBackend:coderBackendPW@clustercoderbackend.tct9by1.mongodb.net/CookiesNSessions?retryWrites=true&w=majority" }),
-  secret: 'myVeryVerySecretShhh',
-  resave: false,
-  saveUninitialized: false,
-  rolling: true,
-  cookie: {
-      maxAge: 60000
-  }
-}))
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+app.use(cookieParser())
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl:
+        'mongodb+srv://coderBackend:coderBackendPW@clustercoderbackend.tct9by1.mongodb.net/CookiesNSessions?retryWrites=true&w=majority',
+      mongoOptions: advancedOptions,
+      ttl: 60,
+      collectionName: 'sessions',
+    }),
+    secret: 'sh21501295asdjk',
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 },
+  })
+)
 
-const login = require('./controllers/userLoginController.js')
+const sessions = require('./controllers/sessionController.js')
 const productos = require('./controllers/productosController.js')
 const testProductos = require('./controllers/testController.js')
 require('./controllers/chatController.js')
 
-app.use('/login', login)
+app.use('/', sessions)
 app.use('/api/productos', productos)
 app.use('/api/productos-test', testProductos)
-
 
 app.get('/:file', (req, res) => {
   res.sendFile(__dirname + `/public/${req.params.file}`)

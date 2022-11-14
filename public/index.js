@@ -58,3 +58,10 @@ function renderProds(data) {
 
   document.getElementById('vista_productos').innerHTML = html
 }
+
+//
+
+function getSessionUserName() {
+  const html = req.session.userName
+  document.getElementById('getUserName').innerHTML = html
+}
